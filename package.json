@@ -12,8 +12,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "postinstall": "husky",
-    "codegen": "graphql-codegen",
-    "codegen:watch": "graphql-codegen --watch"
+    "generate:schema": "graphql-codegen",
+    "generate:schema:watch": "graphql-codegen --watch"
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",

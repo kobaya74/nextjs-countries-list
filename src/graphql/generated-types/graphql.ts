@@ -185,23 +185,6 @@ export type GetCountriesQuery = {
   }>;
 };
 
-export type GetCountriesWithFilterQueryVariables = Exact<{
-  filter?: InputMaybe<CountryFilterInput>;
-}>;
-
-export type GetCountriesWithFilterQuery = {
-  __typename?: 'Query';
-  countries: Array<{
-    __typename?: 'Country';
-    code: string;
-    name: string;
-    emoji: string;
-    capital?: string | null;
-    currency?: string | null;
-    continent: { __typename?: 'Continent'; name: string };
-  }>;
-};
-
 export type GetCountryDetailsQueryVariables = Exact<{
   code: Scalars['ID']['input'];
 }>;
@@ -212,27 +195,6 @@ export type GetCountryDetailsQuery = {
     __typename?: 'Country';
     code: string;
     phone: string;
-    languages: Array<{ __typename?: 'Language'; name: string; code: string }>;
-    states: Array<{ __typename?: 'State'; name: string; code?: string | null }>;
-  } | null;
-};
-
-export type GetCountryByCodeQueryVariables = Exact<{
-  code: Scalars['ID']['input'];
-}>;
-
-export type GetCountryByCodeQuery = {
-  __typename?: 'Query';
-  country?: {
-    __typename?: 'Country';
-    code: string;
-    name: string;
-    emoji: string;
-    capital?: string | null;
-    currency?: string | null;
-    phone: string;
-    native: string;
-    continent: { __typename?: 'Continent'; name: string; code: string };
     languages: Array<{ __typename?: 'Language'; name: string; code: string }>;
     states: Array<{ __typename?: 'State'; name: string; code?: string | null }>;
   } | null;
@@ -386,91 +348,6 @@ export type GetCountriesQueryResult = Apollo.QueryResult<
   GetCountriesQuery,
   GetCountriesQueryVariables
 >;
-export const GetCountriesWithFilterDocument = gql`
-  query GetCountriesWithFilter($filter: CountryFilterInput) {
-    countries(filter: $filter) {
-      code
-      name
-      emoji
-      capital
-      currency
-      continent {
-        name
-      }
-    }
-  }
-`;
-
-/**
- * __useGetCountriesWithFilterQuery__
- *
- * To run a query within a React component, call `useGetCountriesWithFilterQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCountriesWithFilterQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetCountriesWithFilterQuery({
- *   variables: {
- *      filter: // value for 'filter'
- *   },
- * });
- */
-export function useGetCountriesWithFilterQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetCountriesWithFilterQuery,
-    GetCountriesWithFilterQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    GetCountriesWithFilterQuery,
-    GetCountriesWithFilterQueryVariables
-  >(GetCountriesWithFilterDocument, options);
-}
-export function useGetCountriesWithFilterLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetCountriesWithFilterQuery,
-    GetCountriesWithFilterQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    GetCountriesWithFilterQuery,
-    GetCountriesWithFilterQueryVariables
-  >(GetCountriesWithFilterDocument, options);
-}
-export function useGetCountriesWithFilterSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetCountriesWithFilterQuery,
-        GetCountriesWithFilterQueryVariables
-      >,
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    GetCountriesWithFilterQuery,
-    GetCountriesWithFilterQueryVariables
-  >(GetCountriesWithFilterDocument, options);
-}
-export type GetCountriesWithFilterQueryHookResult = ReturnType<
-  typeof useGetCountriesWithFilterQuery
->;
-export type GetCountriesWithFilterLazyQueryHookResult = ReturnType<
-  typeof useGetCountriesWithFilterLazyQuery
->;
-export type GetCountriesWithFilterSuspenseQueryHookResult = ReturnType<
-  typeof useGetCountriesWithFilterSuspenseQuery
->;
-export type GetCountriesWithFilterQueryResult = Apollo.QueryResult<
-  GetCountriesWithFilterQuery,
-  GetCountriesWithFilterQueryVariables
->;
 export const GetCountryDetailsDocument = gql`
   query GetCountryDetails($code: ID!) {
     country(code: $code) {
@@ -561,106 +438,6 @@ export type GetCountryDetailsSuspenseQueryHookResult = ReturnType<
 export type GetCountryDetailsQueryResult = Apollo.QueryResult<
   GetCountryDetailsQuery,
   GetCountryDetailsQueryVariables
->;
-export const GetCountryByCodeDocument = gql`
-  query GetCountryByCode($code: ID!) {
-    country(code: $code) {
-      code
-      name
-      emoji
-      capital
-      currency
-      phone
-      native
-      continent {
-        name
-        code
-      }
-      languages {
-        name
-        code
-      }
-      states {
-        name
-        code
-      }
-    }
-  }
-`;
-
-/**
- * __useGetCountryByCodeQuery__
- *
- * To run a query within a React component, call `useGetCountryByCodeQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCountryByCodeQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetCountryByCodeQuery({
- *   variables: {
- *      code: // value for 'code'
- *   },
- * });
- */
-export function useGetCountryByCodeQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetCountryByCodeQuery,
-    GetCountryByCodeQueryVariables
-  > &
-    (
-      | { variables: GetCountryByCodeQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    ),
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetCountryByCodeQuery, GetCountryByCodeQueryVariables>(
-    GetCountryByCodeDocument,
-    options,
-  );
-}
-export function useGetCountryByCodeLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetCountryByCodeQuery,
-    GetCountryByCodeQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    GetCountryByCodeQuery,
-    GetCountryByCodeQueryVariables
-  >(GetCountryByCodeDocument, options);
-}
-export function useGetCountryByCodeSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetCountryByCodeQuery,
-        GetCountryByCodeQueryVariables
-      >,
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<
-    GetCountryByCodeQuery,
-    GetCountryByCodeQueryVariables
-  >(GetCountryByCodeDocument, options);
-}
-export type GetCountryByCodeQueryHookResult = ReturnType<
-  typeof useGetCountryByCodeQuery
->;
-export type GetCountryByCodeLazyQueryHookResult = ReturnType<
-  typeof useGetCountryByCodeLazyQuery
->;
-export type GetCountryByCodeSuspenseQueryHookResult = ReturnType<
-  typeof useGetCountryByCodeSuspenseQuery
->;
-export type GetCountryByCodeQueryResult = Apollo.QueryResult<
-  GetCountryByCodeQuery,
-  GetCountryByCodeQueryVariables
 >;
 export const GetContinentsDocument = gql`
   query GetContinents {

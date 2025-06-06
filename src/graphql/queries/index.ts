@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-// Minimal data for initial load
+// Basic countries data for homepage list
 export const GET_COUNTRIES = gql`
   query GetCountries {
     countries {
@@ -16,23 +16,7 @@ export const GET_COUNTRIES = gql`
   }
 `;
 
-// Countries with filter support
-export const GET_COUNTRIES_WITH_FILTER = gql`
-  query GetCountriesWithFilter($filter: CountryFilterInput) {
-    countries(filter: $filter) {
-      code
-      name
-      emoji
-      capital
-      currency
-      continent {
-        name
-      }
-    }
-  }
-`;
-
-// Detailed data to be loaded on demand
+// Additional country details for card flip
 export const GET_COUNTRY_DETAILS = gql`
   query GetCountryDetails($code: ID!) {
     country(code: $code) {
@@ -50,32 +34,7 @@ export const GET_COUNTRY_DETAILS = gql`
   }
 `;
 
-export const GET_COUNTRY_BY_CODE = gql`
-  query GetCountryByCode($code: ID!) {
-    country(code: $code) {
-      code
-      name
-      emoji
-      capital
-      currency
-      phone
-      native
-      continent {
-        name
-        code
-      }
-      languages {
-        name
-        code
-      }
-      states {
-        name
-        code
-      }
-    }
-  }
-`;
-
+// Continents for filter dropdown
 export const GET_CONTINENTS = gql`
   query GetContinents {
     continents {
